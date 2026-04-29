@@ -1,83 +1,62 @@
 package com.internship.tool.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.util.UUID;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-/**
- * Represents a system user — can be an Admin, Auditor, Auditee, or Viewer.
- */
 @Entity
 @Table(name = "users")
-@EntityListeners(AuditingEntityListener.class)
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
-    @Column(name = "full_name", nullable = false, length = 120)
-    private String fullName;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    @Column(name = "email", nullable = false, unique = true, length = 180)
-    private String email;
+    @Column(nullable = false)
+    private String password;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(nullable = false)
+    private String role;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, length = 20)
-    private Role role;
+    // ===== GETTERS & SETTERS =====
 
-    @Column(name = "department", length = 100)
-    private String department;
+    public UUID getId() {
+        return id;
+    }
 
-    @Column(name = "phone_number", length = 20)
-    private String phoneNumber;
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-    @Column(name = "is_active", nullable = false)
-    @Builder.Default
-    private Boolean isActive = true;
+    public String getUsername() {
+        return username;
+    }
 
-    @Column(name = "last_login_at")
-    private LocalDateTime lastLoginAt;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    // ─── Auditing ────────────────────────────────────────────────────────────
+    public String getPassword() {
+        return password;
+    }
 
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    public String getRole() {
+        return role;
+    }
 
-    // ─── Relationships ────────────────────────────────────────────────────────
-
-    /** Audit programs this user leads as the primary auditor. */
-    @OneToMany(mappedBy = "leadAuditor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<AuditProgram> auditPrograms = new ArrayList<>();
-
-    /** Findings raised by this user. */
-    @OneToMany(mappedBy = "raisedBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<Finding> findings = new ArrayList<>();
-
-    /** Notifications sent to this user. */
-    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<Notification> notifications = new ArrayList<>();
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
+

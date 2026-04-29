@@ -1,0 +1,23 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< com.internship:external-audit-coordinator >--------------
+[INFO] Building External Audit Coordinator 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ external-audit-coordinator ---
+[INFO] Deleting C:\Users\hanam\OneDrive\Desktop\fs-java-internship\external-audit-coordinator\backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ external-audit-coordinator ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ external-audit-coordinator ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 18 source files with javac [debug release 21] to target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.143 s
+[INFO] Finished at: 2026-04-28T20:51:32+05:30
+[INFO] ------------------------------------------------------------------------

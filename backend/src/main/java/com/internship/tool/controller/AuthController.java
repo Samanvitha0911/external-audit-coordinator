@@ -1,66 +1,50 @@
 package com.internship.tool.controller;
 
-import com.internship.tool.entity.User;
-import com.internship.tool.repository.UserRepository;
-import com.internship.tool.security.JwtUtil;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.internship.tool.dto.LoginRequest;
+import com.internship.tool.security.JwtUtil;
+import com.internship.tool.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    @Data
-    public static class AuthRequest {
-        private String email;
-        private String password;
-    }
-
-    @Data
-    public static class AuthResponse {
-        private String token;
-        private String type = "Bearer";
-        private String email;
-        private String role;
-        
-        public AuthResponse(String token, String email, String role) {
-            this.token = token;
-            this.email = email;
-            this.role = role;
-        }
+    public AuthController(JwtUtil jwtUtil, UserService userService, BCryptPasswordEncoder passwordEncoder) {
+        this.jwtUtil = jwtUtil;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
-            );
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
-        }
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
-        final String jwt = jwtUtil.generateToken(userDetails);
-        
-        User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow();
+        return userService.findByUsername(request.getUsername())
+                .map(user -> {
+                    String storedPassword = user.getPassword();
+                    boolean matches = passwordEncoder.matches(request.getPassword(), storedPassword)
+                            || request.getPassword().equals(storedPassword);
 
-        return ResponseEntity.ok(new AuthResponse(jwt, user.getEmail(), user.getRole().name()));
+                    if (matches) {
+                        String token = jwtUtil.generateToken(
+                                user.getUsername() + ":" + user.getRole()
+                        );
+
+                        return ResponseEntity.ok(token);
+                    } else {
+                        return ResponseEntity.status(401).body("Invalid password");
+                    }
+                })
+                .orElse(ResponseEntity.status(401).body("User not found"));
     }
 }
+
