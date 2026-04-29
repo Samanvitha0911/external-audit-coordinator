@@ -1,8 +1,10 @@
 import chromadb
 
+
 class ChromaClient:
     def __init__(self):
-        self.client = chromadb.Client()
+        # Persistent storage folder
+        self.client = chromadb.PersistentClient(path="./chroma_db")
 
         self.collection = self.client.get_or_create_collection(
             name="audit_collection"
@@ -14,9 +16,15 @@ class ChromaClient:
             ids=[str(i) for i in range(len(docs))]
         )
 
-    def query(self, text):
+    def query(self, text, n_results=3):
         results = self.collection.query(
             query_texts=[text],
-            n_results=1
+            n_results=n_results
         )
-        return results["documents"]
+
+        documents = results.get("documents", [[]])
+
+        if documents and len(documents[0]) > 0:
+            return documents[0]
+
+        return []

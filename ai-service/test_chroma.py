@@ -2,17 +2,12 @@ from services.chroma_client import ChromaClient
 
 client = ChromaClient()
 
-# sample data
 docs = [
-    "Audit ensures financial accuracy",
-    "Login issue in system",
-    "Payment failed due to billing error"
+    "Payment failed due to billing error",
+    "Refund processed successfully",
+    "User login failed due to incorrect password"
 ]
 
-# add documents
 client.add_documents(docs)
 
-# query
-result = client.query("There is a billing problem")
-
-print(result)
+print("✅ Documents added")
