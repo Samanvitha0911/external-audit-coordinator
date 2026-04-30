@@ -115,6 +115,14 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Verified callback delivery using webhook.site
 
 ---
+### ✅ Day 12 – Performance Benchmarking
+- Benchmarked all endpoints with 50 requests each
+- Measured p50, p95, p99, and average response time
+- Identified `/categorise` as performance bottleneck
+- Added cache-based optimization for repeated inputs
+- Documented benchmark results in `reports/Day12_Performance_Benchmark_Report.xlsx`
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
