@@ -123,6 +123,14 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Documented benchmark results in `reports/Day12_Performance_Benchmark_Report.xlsx`
 
 ---
+### ✅ Day 13 – AI Fallback Handling
+- Added fallback mechanism for Groq timeout/error
+- Prevented API crashes on AI failure
+- Returned safe template response
+- Added `meta.is_fallback` flag
+- Applied fallback across query and categorisation endpoints
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
