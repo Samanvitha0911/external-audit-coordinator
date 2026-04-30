@@ -62,7 +62,8 @@ Question:
             "model_used": llm_response["model_used"],
             "tokens_used": llm_response["tokens_used"],
             "response_time_ms": llm_response["response_time_ms"],
-            "cached": False
+            "cached": False,
+            "is_fallback": llm_response["is_fallback"]
         }
     }
 

@@ -14,24 +14,39 @@ class GroqClient:
     def generate_response(self, prompt):
         start = time.time()
 
-        response = self.client.chat.completions.create(
-            model=self.model_name,
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
-        )
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
 
-        end = time.time()
+            end = time.time()
 
-        answer = response.choices[0].message.content
+            answer = response.choices[0].message.content
+            tokens_used = response.usage.total_tokens
+            response_time_ms = round((end - start) * 1000, 2)
 
-        tokens_used = response.usage.total_tokens
+            return {
+                "answer": answer,
+                "model_used": self.model_name,
+                "tokens_used": tokens_used,
+                "response_time_ms": response_time_ms,
+                "is_fallback": False
+            }
 
-        response_time_ms = round((end - start) * 1000, 2)
+        except Exception as e:
+            end = time.time()
 
-        return {
-            "answer": answer,
-            "model_used": self.model_name,
-            "tokens_used": tokens_used,
-            "response_time_ms": response_time_ms
-        }
+            print("⚠️ Groq timeout/error:", str(e))
+
+            response_time_ms = round((end - start) * 1000, 2)
+
+            return {
+                "answer": "We are currently unable to process your request. Please try again later.",
+                "model_used": self.model_name,
+                "tokens_used": 0,
+                "response_time_ms": response_time_ms,
+                "is_fallback": True
+            }
