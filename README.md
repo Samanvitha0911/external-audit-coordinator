@@ -106,6 +106,15 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Saved evaluation report in `reports/Week2_AI_Quality_Review_Day10.xlsx`
 
 ---
+### ✅ Day 11 – Async Job Processing for /generate-report
+- Built POST `/generate-report` endpoint
+- Returned `job_id` immediately with processing status
+- Implemented background thread using Python threading
+- Added GET `/job-status/<job_id>` endpoint
+- Integrated webhook callback on completion
+- Verified callback delivery using webhook.site
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
