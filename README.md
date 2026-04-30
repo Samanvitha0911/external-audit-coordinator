@@ -96,6 +96,16 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Tested cached and non-cached responses successfully in Postman
 
 ---
+### ✅ Day 10 – Week 2 AI Quality Review
+- Tested 10 fresh inputs for each active endpoint
+- Evaluated response accuracy and output format
+- Calculated average accuracy score
+- Ensured target average >= 4/5
+- Rewrote weak prompts for low-scoring cases
+- Re-tested failing inputs after prompt tuning
+- Saved evaluation report in `reports/Week2_AI_Quality_Review_Day10.xlsx`
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
