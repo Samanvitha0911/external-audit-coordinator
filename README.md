@@ -86,6 +86,16 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Tested cache miss, cache hit, and fresh request flow successfully in Postman
 
 ---
+### ✅ Day 9 – Response Metadata Object
+- Added `meta` object to all API responses
+- Included confidence score (0.0–1.0)
+- Added model name used for response generation
+- Included total token usage from Groq response
+- Added response time in milliseconds
+- Added dynamic cache status as boolean
+- Tested cached and non-cached responses successfully in Postman
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
