@@ -147,7 +147,17 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Executed and validated the containerized application using `docker run` command  
 - Verified all REST API endpoints (`/`, `/health`, `/query`, `/categorise`, `/generate-report`) inside the running container  
 - Confirmed successful integration of AI service (Groq API) with backend workflow  
-- Ensured the application is fully portable and ready for deployment in any environment using Docker  
+- Ensured the application is fully portable and ready for deployment in any environment using Docker 
+
+---
+### ✅ Day 16 – Final Performance Verification
+- Tested all backend API endpoints to ensure stable responses within expected time limits  
+- Verified functionality of `/`, `/health`, `/query`, `/categorise`, and `/generate-report` endpoints  
+- Conducted performance checks by executing repeated API calls and confirming consistent response behavior  
+- Validated Redis caching system with successful fallback to in-memory cache when Redis is unavailable  
+- Ensured system stability under Docker container execution without crashes or dependency issues  
+- Confirmed Groq AI integration is functioning correctly within backend workflow  
+- Verified end-to-end system reliability and readiness for production-level usage  
 
 ---
 ## 🧠 Features
