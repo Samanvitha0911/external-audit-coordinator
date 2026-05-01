@@ -131,6 +131,13 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Applied fallback across query and categorisation endpoints
 
 ---
+### ✅ Day 14 – Final Prompt QA
+- Tested all prompts against 30 seeded demo records
+- Verified prompt quality for categorisation and query endpoints
+- Checked formatting, correctness, and demo readiness
+- Documented results in `reports/Day14_Final_Prompt_QA_Report.xlsx`
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
