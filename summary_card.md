@@ -54,10 +54,7 @@ An AI-powered system that automates audit assistance tasks such as categorizatio
 
 ## 🔗 GitHub Repository
 
-👉 [Insert your GitHub link here]
-
-Example:
-https://github.com/your-username/external-audit-coordinator
+https://github.com/tecsxpert/external-audit-coordinator.git
 
 ---
 
