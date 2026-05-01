@@ -160,6 +160,14 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Verified end-to-end system reliability and readiness for production-level usage  
 
 ---
+### 📌 Day 17 – Backup Deck Preparation (Dry Run)
+- Performed full system dry run of all endpoints (`/categorise`, `/query`, `/generate-report`, `/health`, `/`)
+- Captured AI-generated outputs and API responses for backup demonstration
+- Verified Docker container status using `docker ps`
+- Collected screenshots of successful API responses in Postman/PowerShell
+- Created backup evidence deck to ensure demo reliability in case of Groq API failure
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
