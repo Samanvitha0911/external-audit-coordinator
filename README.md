@@ -138,6 +138,18 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Documented results in `reports/Day14_Final_Prompt_QA_Report.xlsx`
 
 ---
+### ✅ Day 15 – AI Packaging & Docker Deployment Completion
+- Containerized the AI backend service using Docker using Python 3.11 slim base image  
+- Fixed dependency management by correctly configuring `requirements.txt` for Flask, Groq, Redis, and supporting libraries  
+- Resolved multiple Docker build and runtime issues including missing modules and incorrect environment configuration  
+- Configured `.env` support for secure handling of `GROQ_API_KEY` inside Docker container  
+- Successfully built Docker image with clean installation of all dependencies without errors  
+- Executed and validated the containerized application using `docker run` command  
+- Verified all REST API endpoints (`/`, `/health`, `/query`, `/categorise`, `/generate-report`) inside the running container  
+- Confirmed successful integration of AI service (Groq API) with backend workflow  
+- Ensured the application is fully portable and ready for deployment in any environment using Docker  
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
