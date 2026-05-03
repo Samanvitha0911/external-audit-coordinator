@@ -1,0 +1,54 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< com.internship:external-audit-coordinator >--------------
+[INFO] Building External Audit Coordinator 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ external-audit-coordinator ---
+[INFO] Deleting c:\Users\hanam\OneDrive\Desktop\fs-java-internship\external-audit-coordinator\backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ external-audit-coordinator ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ external-audit-coordinator ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 12 source files with javac [debug release 21] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /c:/Users/hanam/OneDrive/Desktop/fs-java-internship/external-audit-coordinator/backend/src/main/java/com/internship/tool/controller/AuthController.java:[20,35] cannot find symbol
+  symbol:   method getUsername()
+  location: variable request of type com.internship.tool.dto.LoginRequest
+[ERROR] /c:/Users/hanam/OneDrive/Desktop/fs-java-internship/external-audit-coordinator/backend/src/main/java/com/internship/tool/controller/AuthController.java:[20,76] cannot find symbol
+  symbol:   method getPassword()
+  location: variable request of type com.internship.tool.dto.LoginRequest
+[ERROR] /c:/Users/hanam/OneDrive/Desktop/fs-java-internship/external-audit-coordinator/backend/src/main/java/com/internship/tool/controller/AuthController.java:[21,57] cannot find symbol
+  symbol:   method getUsername()
+  location: variable request of type com.internship.tool.dto.LoginRequest
+[INFO] 3 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.605 s
+[INFO] Finished at: 2026-04-26T20:26:17+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project external-audit-coordinator: Compilation failure: Compilation failure: 
+[ERROR] /c:/Users/hanam/OneDrive/Desktop/fs-java-internship/external-audit-coordinator/backend/src/main/java/com/internship/tool/controller/AuthController.java:[20,35] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: variable request of type com.internship.tool.dto.LoginRequest
+[ERROR] /c:/Users/hanam/OneDrive/Desktop/fs-java-internship/external-audit-coordinator/backend/src/main/java/com/internship/tool/controller/AuthController.java:[20,76] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable request of type com.internship.tool.dto.LoginRequest
+[ERROR] /c:/Users/hanam/OneDrive/Desktop/fs-java-internship/external-audit-coordinator/backend/src/main/java/com/internship/tool/controller/AuthController.java:[21,57] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: variable request of type com.internship.tool.dto.LoginRequest
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
