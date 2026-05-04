@@ -1,40 +1,82 @@
-import os
 import time
-import logging
+import os
+import json
+import re
 from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
 
-logging.basicConfig(level=logging.ERROR)
 
 class GroqClient:
     def __init__(self):
-        self.api_key = os.getenv("GROQ_API_KEY")
-        print("API KEY LOADED:", self.api_key)
-        self.client = Groq(api_key=self.api_key)
+        self.model_name = "llama-3.1-8b-instant"
+        self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+    # ✅ NEW: safe JSON extractor
+    def extract_json(self, text):
+        # remove markdown wrappers
+        text = re.sub(r"```json", "", text)
+        text = re.sub(r"```", "", text)
+
+        # extract only JSON part
+        start = text.find("{")
+        end = text.rfind("}")
+
+        if start == -1 or end == -1:
+            raise ValueError("No JSON found in response")
+
+        clean_text = text[start:end+1]
+
+        return json.loads(clean_text)
 
     def generate_response(self, prompt):
-        retries = 3
-        delay = 2
+        start = time.time()
 
-        for attempt in range(retries):
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
+
+            end = time.time()
+
+            raw_output = response.choices[0].message.content
+
+            tokens_used = response.usage.total_tokens
+            response_time_ms = round((end - start) * 1000, 2)
+
+            # ✅ FIX: ensure clean parsing
             try:
-                response = self.client.chat.completions.create(
-                    model="llama-3.1-8b-instant",
-                    messages=[
-                        {"role": "user", "content": prompt}
-                    ]
-                )
+                answer = self.extract_json(raw_output)
+            except Exception:
+                # fallback if AI doesn't return valid JSON
+                answer = {
+                    "raw_response": raw_output,
+                    "parse_error": "Invalid JSON from AI"
+                }
 
-                return response.choices[0].message.content
+            return {
+                "answer": answer,
+                "model_used": self.model_name,
+                "tokens_used": tokens_used,
+                "response_time_ms": response_time_ms,
+                "is_fallback": False
+            }
 
-            except Exception as e:
-                print("FULL ERROR:", e) 
-                logging.error(f"Attempt {attempt+1} failed: {e}")
+        except Exception as e:
+            end = time.time()
 
-                if attempt < retries - 1:
-                    time.sleep(delay)
-                    delay *= 2
-                else:
-                    return "Error: Unable to get response"
+            print("⚠️ Groq timeout/error:", str(e))
+
+            response_time_ms = round((end - start) * 1000, 2)
+
+            return {
+                "answer": "We are currently unable to process your request. Please try again later.",
+                "model_used": self.model_name,
+                "tokens_used": 0,
+                "response_time_ms": response_time_ms,
+                "is_fallback": True
+            }

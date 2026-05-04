@@ -53,3 +53,4 @@ class CacheClient:
             "hits": self.hits,
             "misses": self.misses
         }
+cache_client = CacheClient()

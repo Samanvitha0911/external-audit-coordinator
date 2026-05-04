@@ -86,6 +86,88 @@ This project is part of an AI-based External Audit System. The goal is to build 
 - Tested cache miss, cache hit, and fresh request flow successfully in Postman
 
 ---
+### ✅ Day 9 – Response Metadata Object
+- Added `meta` object to all API responses
+- Included confidence score (0.0–1.0)
+- Added model name used for response generation
+- Included total token usage from Groq response
+- Added response time in milliseconds
+- Added dynamic cache status as boolean
+- Tested cached and non-cached responses successfully in Postman
+
+---
+### ✅ Day 10 – Week 2 AI Quality Review
+- Tested 10 fresh inputs for each active endpoint
+- Evaluated response accuracy and output format
+- Calculated average accuracy score
+- Ensured target average >= 4/5
+- Rewrote weak prompts for low-scoring cases
+- Re-tested failing inputs after prompt tuning
+- Saved evaluation report in `reports/Week2_AI_Quality_Review_Day10.xlsx`
+
+---
+### ✅ Day 11 – Async Job Processing for /generate-report
+- Built POST `/generate-report` endpoint
+- Returned `job_id` immediately with processing status
+- Implemented background thread using Python threading
+- Added GET `/job-status/<job_id>` endpoint
+- Integrated webhook callback on completion
+- Verified callback delivery using webhook.site
+
+---
+### ✅ Day 12 – Performance Benchmarking
+- Benchmarked all endpoints with 50 requests each
+- Measured p50, p95, p99, and average response time
+- Identified `/categorise` as performance bottleneck
+- Added cache-based optimization for repeated inputs
+- Documented benchmark results in `reports/Day12_Performance_Benchmark_Report.xlsx`
+
+---
+### ✅ Day 13 – AI Fallback Handling
+- Added fallback mechanism for Groq timeout/error
+- Prevented API crashes on AI failure
+- Returned safe template response
+- Added `meta.is_fallback` flag
+- Applied fallback across query and categorisation endpoints
+
+---
+### ✅ Day 14 – Final Prompt QA
+- Tested all prompts against 30 seeded demo records
+- Verified prompt quality for categorisation and query endpoints
+- Checked formatting, correctness, and demo readiness
+- Documented results in `reports/Day14_Final_Prompt_QA_Report.xlsx`
+
+---
+### ✅ Day 15 – AI Packaging & Docker Deployment Completion
+- Containerized the AI backend service using Docker using Python 3.11 slim base image  
+- Fixed dependency management by correctly configuring `requirements.txt` for Flask, Groq, Redis, and supporting libraries  
+- Resolved multiple Docker build and runtime issues including missing modules and incorrect environment configuration  
+- Configured `.env` support for secure handling of `GROQ_API_KEY` inside Docker container  
+- Successfully built Docker image with clean installation of all dependencies without errors  
+- Executed and validated the containerized application using `docker run` command  
+- Verified all REST API endpoints (`/`, `/health`, `/query`, `/categorise`, `/generate-report`) inside the running container  
+- Confirmed successful integration of AI service (Groq API) with backend workflow  
+- Ensured the application is fully portable and ready for deployment in any environment using Docker 
+
+---
+### ✅ Day 16 – Final Performance Verification
+- Tested all backend API endpoints to ensure stable responses within expected time limits  
+- Verified functionality of `/`, `/health`, `/query`, `/categorise`, and `/generate-report` endpoints  
+- Conducted performance checks by executing repeated API calls and confirming consistent response behavior  
+- Validated Redis caching system with successful fallback to in-memory cache when Redis is unavailable  
+- Ensured system stability under Docker container execution without crashes or dependency issues  
+- Confirmed Groq AI integration is functioning correctly within backend workflow  
+- Verified end-to-end system reliability and readiness for production-level usage  
+
+---
+### 📌 Day 17 – Backup Deck Preparation (Dry Run)
+- Performed full system dry run of all endpoints (`/categorise`, `/query`, `/generate-report`, `/health`, `/`)
+- Captured AI-generated outputs and API responses for backup demonstration
+- Verified Docker container status using `docker ps`
+- Collected screenshots of successful API responses in Postman/PowerShell
+- Created backup evidence deck to ensure demo reliability in case of Groq API failure
+
+---
 ## 🧠 Features
 - Text classification into categories
 - AI-generated responses using Groq LLM
